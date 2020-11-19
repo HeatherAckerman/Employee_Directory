@@ -1,10 +1,18 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import Directory from "./components/Directory";
 //import components
 
-function App() {
-    return; //return components 
-}
+const App = () => {
+
+    return (
+  
+      <div className="App">
+        <Directory />
+      </div>
+  
+    )
+  
+  }
 
 export default App;
