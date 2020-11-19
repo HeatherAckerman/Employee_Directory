@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import EmployeeInfo from "./EmployeeInfo.js";
+import Search from "./Search.js"
 
 class Directory extends Component {
 
   state = {
     employees: [],
+    sortedEmp: [],
+    search: "",
+    sorted: false
   };
 
   componentDidMount = () => {
@@ -15,6 +19,25 @@ class Directory extends Component {
       })
   };
 
+  startSorting = event => {
+    this.setState({ search: event.target.value }, () => {
+      this.sortEmployees();
+      this.setState({ sorted: true });
+    });
+  };
+
+  sortEmployees = () => {
+    let { employees, search } = this.state;
+    let sortedEmp = employees.filter(sorted => {
+      return (
+        sorted.name.first.toLowerCase().includes(search.toLowerCase()) ||
+        sorted.name.last.toLowerCase().includes(search.toLowerCase()) ||
+        sorted.email.toLowerCase().includes(search.toLowerCase())
+      )
+    })
+    this.setState({ sortedEmp })
+  }
+
   render = () => {
     return (
       <div>
@@ -23,7 +46,13 @@ class Directory extends Component {
             Employee Directory
           </h1>
         </div>
-
+        <div>
+          <Search
+            name="search"
+            startSorting={this.startSorting}
+            label="Search"
+          />
+        </div>
         <div className="container">
           <table className="table">
             <thead className="thead">
@@ -38,7 +67,7 @@ class Directory extends Component {
             </thead>
             <tbody>
 
-              {this.state.employees.map(employee => (
+              {!this.state.sorted ? this.state.employees.map(employee => (
                 < EmployeeInfo
                   key={employee.id.value}
                   icon={employee.picture.medium}
@@ -47,7 +76,20 @@ class Directory extends Component {
                   phone={employee.phone}
                   email={employee.email}
                   dob={employee.dob.date}
-                />))}
+                />
+              ))
+                : this.state.sortedEmp.map(employee => (
+
+                  <EmployeeInfo
+                    key={employee.id.value}
+                    icon={employee.picture.medium}
+                    firstName={employee.name.first}
+                    lastName={employee.name.last}
+                    phone={employee.phone}
+                    email={employee.email}
+                    dob={employee.dob.date}
+                  />
+                ))}
             </tbody>
           </table>
         </div>
