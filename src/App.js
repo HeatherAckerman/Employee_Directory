@@ -1,18 +1,16 @@
 import React from "react";
 import "./App.css";
 import Directory from "./components/Directory";
-//import components
+import Header from "./components/Header";
 
 const App = () => {
 
-    return (
-  
-      <div className="App">
-        <Directory />
-      </div>
-  
-    )
-  
-  }
+  return (
+    <div className="App">
+      <Header />
+      <Directory />
+    </div>
+  )
+}
 
 export default App;

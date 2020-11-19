@@ -41,18 +41,11 @@ class Directory extends Component {
   render = () => {
     return (
       <div>
-        <div className="jumbotron">
-          <h1>
-            Employee Directory
-          </h1>
-        </div>
-        <div>
           <Search
             name="search"
             startSorting={this.startSorting}
             label="Search"
           />
-        </div>
         <div className="container">
           <table className="table">
             <thead className="thead">
